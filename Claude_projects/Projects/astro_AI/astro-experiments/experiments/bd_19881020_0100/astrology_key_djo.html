@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ключ — Джйотиш (ведическая астрология)</title>
+<style>
+  :root {
+    --bg:#f5f4f0; --card:#fff; --accent:#5a3a8c; --accent-light:#f0eaf8;
+    --text:#1a1a1a; --border:#ddd; --radius:10px; --shadow:0 2px 12px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,serif;background:var(--bg);color:var(--text);line-height:1.75}
+  header{background:var(--accent);color:#fff;padding:2rem 1.5rem;text-align:center}
+  header h1{font-size:1.5rem;font-weight:normal}
+  header p{margin-top:.4rem;opacity:.8;font-size:.9rem}
+  .container{max-width:760px;margin:0 auto;padding:2rem 1rem}
+  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem;margin-bottom:1.75rem}
+  .card h2{color:var(--accent);font-size:1.1rem;border-bottom:1px solid var(--border);padding-bottom:.6rem;margin-bottom:1rem}
+  .card p{font-size:.97rem;margin-bottom:.75rem}
+  .card p:last-child{margin-bottom:0}
+  .bd-highlight{background:var(--accent-light);border-left:4px solid var(--accent);padding:.75rem 1rem;border-radius:6px;font-size:1.1rem;font-weight:bold;letter-spacing:.03em}
+  table{width:100%;border-collapse:collapse;font-size:.95rem}
+  th{background:var(--accent);color:#fff;padding:.75rem 1rem;text-align:left;font-weight:normal}
+  td{padding:.75rem 1rem;border-bottom:1px solid var(--border)}
+  tr:last-child td{border-bottom:none}
+  td.cell-label{font-weight:bold;color:var(--accent)}
+  td.highlight{background:#fff3cd;font-weight:bold}
+  tr:hover td{background:#faf9f7}
+  .warning{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:1rem 1.25rem;font-size:.9rem;color:#5a4000}
+  .reveal-section{text-align:center;padding:2rem 0}
+  #reveal-btn{background:var(--accent);color:#fff;border:none;padding:1rem 3rem;font-size:1.05rem;font-family:inherit;border-radius:8px;cursor:pointer;letter-spacing:.02em;transition:background .2s;box-shadow:0 4px 16px rgba(90,58,140,.25)}
+  #reveal-btn:hover{background:#4a2a7c}
+  #key-content{display:none}
+</style>
+</head>
+<body>
+<header>
+  <h1>Ключ к эксперименту</h1>
+  <p>Джйотиш (ведическая астрология) · —_ind_202606070251.html</p>
+</header>
+<div class="container">
+  <div class="card warning">
+    ⚠️ Этот документ содержит ключ к слепому тесту. Открывать только после завершения оценки всех профилей.
+  </div>
+  <div class="reveal-section">
+    <button id="reveal-btn">Посмотреть ключ</button>
+  </div>
+  <div id="key-content">
+    
+  <div class="card">
+    <h2>Ключ профиля</h2>
+    <p>Истинной дате рождения соответствует <strong>Профиль M</strong>.</p>
+  </div>
+  <div class="card">
+    <h2>Истинная дата рождения</h2>
+    <div class="bd-highlight">—</div>
+    <p style="margin-top:.75rem;font-size:.9rem;color:#666">— · —</p>
+  </div>
+  <div class="card">
+    <h2>Соответствие профилей</h2>
+    <table>
+      <thead>
+        <tr><th>Профиль</th><th>Использованная дата</th><th>Тип варианта</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cell-label">Профиль K</td>
+          <td>—</td>
+          <td>BD + 90 дней</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Профиль L</td>
+          <td>—</td>
+          <td>BD − 90 дней</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Профиль M</td>
+          <td>—</td>
+          <td class="highlight">Истинная дата</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Профиль N</td>
+          <td>—</td>
+          <td>BD + 180 дней</td>
+        </tr></tbody>
+    </table>
+  </div>
+  <div class="card">
+    <h2>Итог</h2>
+    <p>Профиль <strong>M</strong> соответствует истинной дате рождения.
+    Если испытуемый поставил ему наиболее высокую оценку «Насколько это похоже на меня»,
+    эксперимент подтверждает способность астрологической интерпретации точно описывать личность.</p>
+  </div>
+  </div>
+</div>
+<script>
+  document.getElementById("reveal-btn").addEventListener("click", function() {
+    document.getElementById("key-content").style.display = "block";
+    this.closest(".reveal-section").style.display = "none";
+  });
+</script>
+</body>
+</html>
