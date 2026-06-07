@@ -1,0 +1,34 @@
+{
+  "west": {
+    "A": "west_BD-90",
+    "B": "west_BD",
+    "C": "west_BD+180",
+    "D": "west_BD+90"
+  },
+  "djo": {
+    "K": "djo_BD+180",
+    "L": "djo_BD+90",
+    "M": "djo_BD-90",
+    "N": "djo_BD"
+  },
+  "date_info": {
+    "BD": {
+      "label": "BD",
+      "type": "Истинная дата"
+    },
+    "BD+90": {
+      "label": "BD+90",
+      "type": "BD + 90 дней"
+    },
+    "BD-90": {
+      "label": "BD-90",
+      "type": "BD − 90 дней"
+    },
+    "BD+180": {
+      "label": "BD+180",
+      "type": "BD + 180 дней"
+    }
+  },
+  "randomized_at": "2026-06-07T03:31:43.848817",
+  "positional_conflicts": 0
+}
