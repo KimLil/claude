@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Астрологический эксперимент — Джйотиш (ведическая астрология)</title>
+<style>
+  :root {
+    --bg:#f5f4f0; --card:#fff; --accent:#3a5a8c; --accent-light:#e8eef6;
+    --text:#1a1a1a; --muted:#666; --border:#ddd; --radius:10px;
+    --shadow:0 2px 12px rgba(0,0,0,.08);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:Georgia,serif;background:var(--bg);color:var(--text);line-height:1.75}
+  header{background:var(--accent);color:#fff;padding:2rem 1.5rem;text-align:center}
+  header h1{font-size:1.6rem;font-weight:normal;letter-spacing:.02em}
+  header p{margin-top:.5rem;opacity:.8;font-size:.95rem}
+  .container{max-width:860px;margin:0 auto;padding:2rem 1rem}
+  .toc-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:1.5rem 2rem;margin-bottom:2rem}
+  .toc-card h2{color:var(--accent);font-size:1.1rem;margin-bottom:1rem;border-bottom:1px solid var(--border);padding-bottom:.5rem}
+  .toc-card ol{padding-left:1.5rem}
+  .toc-card li{margin:.4rem 0}
+  .toc-card a{color:var(--accent);text-decoration:none}
+  .toc-card a:hover{text-decoration:underline}
+  .intro-card{background:var(--accent-light);border-left:4px solid var(--accent);border-radius:var(--radius);padding:1.25rem 1.5rem;margin-bottom:2rem;font-size:.95rem;color:#2a3a50}
+  .profile-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:2.5rem;overflow:hidden}
+  .profile-header{background:var(--accent);color:#fff;padding:1.25rem 2rem}
+  .profile-header h2{font-size:1.3rem;font-weight:normal;letter-spacing:.05em}
+  .profile-content{padding:1.5rem 2rem}
+  details.section-block{border-bottom:1px solid var(--border)}
+  details.section-block:last-of-type{border-bottom:none}
+  summary.section-title{font-size:.85rem;font-weight:bold;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding:1rem 0;cursor:pointer;list-style:none;display:flex;align-items:center;gap:.5rem}
+  summary.section-title::before{content:"▶";font-size:.65rem;transition:transform .2s}
+  details[open] summary.section-title::before{transform:rotate(90deg)}
+  summary::-webkit-details-marker{display:none}
+  .section-body{padding-bottom:1.25rem}
+  .section-body p{margin-bottom:.85rem;font-size:.97rem}
+  .section-body p:last-child{margin-bottom:0}
+  .rating-form{background:#f9f8f5;border-bottom:2px solid var(--accent-light);padding:1.25rem 2rem}
+  .rating-title{color:var(--accent);font-size:.95rem;font-weight:bold;margin-bottom:1rem}
+  .rating-item label{display:block;font-size:.9rem;margin-bottom:.6rem;color:var(--muted)}
+  .scale-inputs{display:flex;gap:.3rem;flex-wrap:wrap;margin-bottom:1rem}
+  .scale-btn{display:flex;flex-direction:column;align-items:center;cursor:pointer}
+  .scale-btn input{display:none}
+  .scale-btn span{width:2rem;height:2rem;border-radius:50%;border:2px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:all .15s;background:#fff}
+  .scale-btn input:checked + span{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:bold}
+  .scale-btn:hover span{border-color:var(--accent)}
+  .checkbox-block{margin-top:.25rem}
+  .exact-label{display:inline-flex;align-items:center;gap:.6rem;cursor:pointer;user-select:none}
+  .exact-label input{display:none}
+  .exact-box{display:inline-flex;align-items:center;gap:.5rem;padding:.5rem 1rem;border:2px solid var(--border);border-radius:8px;font-size:.95rem;background:#fff;transition:all .2s}
+  .exact-box::before{content:"☐";font-size:1.1rem}
+  .exact-label input:checked ~ .exact-box{background:#e8f4e8;border-color:#4a8c4a;color:#2a5a2a;font-weight:bold}
+  .exact-label input:checked ~ .exact-box::before{content:"☑"}
+  .download-section{text-align:center;padding:2rem 0 1rem}
+  #download-btn{background:var(--accent);color:#fff;border:none;padding:.9rem 2.5rem;font-size:1rem;font-family:inherit;border-radius:8px;cursor:pointer;letter-spacing:.02em;transition:background .2s}
+  #download-btn:hover{background:#2a4a7c}
+  #download-btn::before{content:"↓  "}
+  .back-link{text-align:center;margin:.5rem 0 2rem}
+  .back-link a{color:var(--accent);font-size:.9rem;text-decoration:none}
+  .back-link a:hover{text-decoration:underline}
+  @media(max-width:600px){
+    .profile-content,.rating-form{padding:1.25rem}
+    .scale-inputs{gap:.2rem}
+    .scale-btn span{width:1.75rem;height:1.75rem;font-size:.75rem}
+  }
+  /* Key section embedded in test */
+  .key-section{margin-top:3rem;padding-top:2rem;border-top:3px solid var(--accent-light)}
+  .key-section .warning{background:#fff3cd;border:1px solid #ffc107;border-radius:6px;padding:1rem 1.25rem;font-size:.9rem;color:#5a4000;margin-bottom:1.5rem}
+  .reveal-section{text-align:center;padding:1.5rem 0}
+  #reveal-btn{background:var(--accent);color:#fff;border:none;padding:1rem 3rem;font-size:1.05rem;font-family:inherit;border-radius:8px;cursor:pointer;letter-spacing:.02em;transition:background .2s;box-shadow:0 4px 16px rgba(58,90,140,.2)}
+  #reveal-btn:hover{background:#2a4a7c}
+  #key-content{display:none}
+  .key-card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:2rem;margin-bottom:1.75rem}
+  .key-card h2{color:var(--accent);font-size:1.1rem;border-bottom:1px solid var(--border);padding-bottom:.6rem;margin-bottom:1rem}
+  .key-card p{font-size:.97rem;margin-bottom:.75rem}
+  .key-card p:last-child{margin-bottom:0}
+  .bd-highlight{background:var(--accent-light);border-left:4px solid var(--accent);padding:.75rem 1rem;border-radius:6px;font-size:1.1rem;font-weight:bold}
+  .key-table{width:100%;border-collapse:collapse;font-size:.95rem}
+  .key-table th{background:var(--accent);color:#fff;padding:.75rem 1rem;text-align:left;font-weight:normal}
+  .key-table td{padding:.75rem 1rem;border-bottom:1px solid var(--border)}
+  .key-table tr:last-child td{border-bottom:none}
+  .key-table td.cell-label{font-weight:bold;color:var(--accent)}
+  .key-table td.highlight{background:#fff3cd;font-weight:bold}
+</style>
+</head>
+<body>
+<header>
+  <h1>Астрологический эксперимент</h1>
+  <p>Джйотиш (ведическая астрология)</p>
+</header>
+<div class="container">
+  <div class="intro-card">
+    Перед вами четыре психологических описания личности. Прочитайте каждое внимательно и оцените,
+    насколько оно точно описывает вас. Секции можно сворачивать и разворачивать.
+    По завершении нажмите кнопку внизу страницы, чтобы скачать результаты.
+  </div>
+  <nav class="toc-card">
+    <h2>Оглавление</h2>
+    <ol><li><a href="#profile-K">Профиль K</a></li>
+<li><a href="#profile-L">Профиль L</a></li>
+<li><a href="#profile-M">Профиль M</a></li>
+<li><a href="#profile-N">Профиль N</a></li>
+</ol>
+  </nav>
+  
+    <section class="profile-card" id="profile-K">
+      <div class="profile-header"><h2>Профиль K</h2></div>
+      
+      <div class="rating-form">
+        <div class="rating-title">Оценка профиля K</div>
+        <div class="rating-item">
+          <label>Насколько это похоже на меня</label>
+          <div class="scale-inputs"><label class="scale-btn"><input type="radio" name="sim_K" value="1"><span>1</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="2"><span>2</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="3"><span>3</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="4"><span>4</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="5"><span>5</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="6"><span>6</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="7"><span>7</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="8"><span>8</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="9"><span>9</span></label><label class="scale-btn"><input type="radio" name="sim_K" value="10"><span>10</span></label></div>
+        </div>
+        <div class="checkbox-block">
+          <label class="exact-label">
+            <input type="checkbox" id="exact-K" name="exact_K">
+            <span class="exact-box">Это точно про меня!</span>
+          </label>
+        </div>
+      </div>
+      <div class="profile-content">
+        <details class="section-block" open>
+            <summary class="section-title">КРАТКОЕ РЕЗЮМЕ ЛИЧНОСТИ</summary>
+            <div class="section-body"><p>Этот человек понимает что-то важное о времени. Не в смысле торопливости или медлительности — а в смысле глубинного уважения к процессу: то, что строится правильно, строится медленно. Он не ищет быстрых результатов — он ищет прочных. Его способность слушать — подлинная и редкая. Не в смысле физического внимания, а в смысле внутренней готовности по-настоящему воспринять другого: его слова, его паузы, то, что стоит за словами. Через это умение он накапливает понимание мира, которое не даётся тому, кто всё время говорит. При этом сам он не тих и не пассивен — его активность просто иначе устроена: не в импульсах и вспышках, а в последовательном, методичном движении. Там, где другие сгорают, он продолжает идти. Его дисциплина — не насилие над собой, а способ уважать то, что он делает.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПСИХОЛОГИЧЕСКАЯ СФЕРА</summary>
+            <div class="section-body"><p><strong>Мышление.</strong> Систематическое, терпеливое, ориентированное на долгосрочное. Не торопится с выводами — предпочитает дождаться достаточного объёма информации. Прекрасно держит сложные структуры в уме. Сильная долгосрочная память на детали и паттерны.</p>
+<p><strong>Эмоциональные реакции.</strong> Эмоции переживаются глубоко, но выражаются сдержанно. Это не закрытость — это внутренняя форма уважения к силе переживания: не выплёскивать то, что ещё не осмыслено. Период осмысления может быть долгим.</p>
+<p><strong>Принятие решений.</strong> Медленное и надёжное. Предпочитает переждать и принять взвешенное решение, чем действовать быстро и переделывать. Однажды принятые решения — прочные. Менять курс тяжело — но если меняет, то полностью.</p>
+<p><strong>Отношение к риску.</strong> Оценивает тщательно. Не боится сложности — боится ненадёжности. Склонен выбирать более долгий путь, если он более устойчив. При этом умеет идти на непростой риск, если видит обоснование.</p>
+<p><strong>Отношение к людям.</strong> Наблюдателен — особенно в ситуациях, где люди не знают, что за ними наблюдают. Понимает человека через то, как он ведёт себя в трудных обстоятельствах, а не через самопрезентацию. Верен тем, кого принял — долго и последовательно.</p>
+<p><strong>Внутренние противоречия.</strong> Умеет служить и отдавать — и иногда теряет себя в этом. Внешняя устойчивость может скрывать внутреннее накопленное напряжение, которое ищет выход. Скромность порой мешает обозначить собственную ценность там, где это необходимо.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ФИЗИОЛОГИЯ И СПОРТ</summary>
+            <div class="section-body"><p><strong>Уровень энергии.</strong> Стабильная, методичная. Не взрывная, но долгая. Умеет работать равномерно на высоком уровне в течение длительного времени — там, где другие уже выдыхаются.</p>
+<p><strong>Выносливость.</strong> Одна из сильных сторон. Хорошо переносит нагрузки, требующие терпения и постепенности. Спортивные результаты — часто плод длительного планомерного тренинга, а не природных данных.</p>
+<p><strong>Предпочтительные нагрузки.</strong> Бег на длинные дистанции, плавание, горный туризм, йога, силовые тренировки с постепенным прогрессом. Регулярность важнее интенсивности. Одиночные тренировки — предпочтительнее командных.</p>
+<p><strong>Восстановление.</strong> Нуждается в достаточном сне и тишине. Восстановление — процесс медленный, зато глубокий. Поспешное возвращение в активность после перегрузки приводит к накоплению усталости, которая потом даёт о себе знать.</p>
+<p>Сильные и слабые стороны организма. Суставы, особенно колени, и позвоночник — зоны особого внимания. Склонность к накоплению напряжения в костно-мышечной системе. Регулярная профилактика важнее лечения. Умеренность в нагрузке — практическая мудрость, а не слабость.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПРОФЕССИОНАЛЬНАЯ РЕАЛИЗАЦИЯ</summary>
+            <div class="section-body"><p><strong>Формат деятельности.</strong> Долгосрочные проекты, требующие системного строительства, дисциплины и точности. Наука, исследования, архитектура, строительство, юриспруденция, государственное управление, финансы. Сферы, где качество работы подтверждается временем.</p>
+<p><strong>Найм или предпринимательство.</strong> Хорошо работает в обоих форматах при наличии ясной структуры и понятных правил. В найме — надёжный специалист или руководитель высшего уровня с долгим горизонтом планирования. В предпринимательстве — выстраивает устойчивое, а не быстрое.</p>
+<p><strong>Управление.</strong> Требовательный, но справедливый. Не прощает халатности, но и не требует невозможного. Создаёт систему, которая работает без его постоянного присутствия. Долгосрочная ориентация в управленческих решениях.</p>
+<p><strong>Финансы.</strong> Осторожен и методичен. Накапливает планомерно. Предпочитает материальные активы и понятные инструменты. Финансовая независимость — базовая ценность. Не склонен к рискованным вложениям без глубокого понимания.</p>
+<p><strong>Рабочая среда.</strong> Нуждается в стабильной, предсказуемой среде с ясными правилами. Хаос и постоянная смена приоритетов снижают его эффективность. Важна возможность доводить начатое до конца.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ИНТЕРЕСЫ И ХОББИ</summary>
+            <div class="section-body"><p><strong>Устойчивые интересы.</strong> История, традиции ремёсел, астрономия, архитектура, классическая литература, философия. Всё, что выдержало проверку временем, вызывает особый интерес.</p>
+<p><strong>Интеллектуальные предпочтения.</strong> Глубина в одной теме — не широта поверхностного знакомства. Читает медленно, но усваивает глубоко. Интерес к тому, как знание накапливается и передаётся через поколения.</p>
+<p><strong>Склонности.</strong> Создание чего-то долговечного — физического или интеллектуального. Обучение как форма передачи накопленного. Служение — как личная форма участия в чём-то большем, чем один человек.</p>
+<p><strong>Темы многолетнего интереса.</strong> Что такое мастерство и как оно достигается. Природа времени и его влияние на человека. Что остаётся от человека — в людях, в делах, в качестве переданного знания.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">СЕМЬЯ И ОТНОШЕНИЯ</summary>
+            <div class="section-body"><p><strong>Построение отношений.</strong> Медленное, основанное на наблюдении и доверии, которое нужно заслужить. Не тот, кто открывается быстро — но тот, кто, открывшись, остаётся. Ценит проверенное временем выше яркого, но короткого.</p>
+<p><strong>Близость.</strong> Любит через последовательные конкретные действия — присутствие, надёжность, готовность взять на себя. Эмоциональная близость — через общий путь, а не через разговоры о чувствах.</p>
+<p><strong>Автономия.</strong> Нуждается в личном времени и пространстве — не для одиночества как такового, а для внутренней работы, которая требует тишины. Партнёр, понимающий это, получает гораздо более полное присутствие в остальное время.</p>
+<p><strong>Семейные роли.</strong> Ответственный, надёжный, долгосрочный. Строит семью как структуру — с ценностями, традициями, пространством. Детям передаёт прежде всего отношение к делу и к обязательствам.</p>
+<p><strong>Коммуникация.</strong> Немногословен, но весом в словах. Предпочитает говорить тогда, когда есть что сказать — не ради заполнения тишины. Умеет слушать так, что человек чувствует себя по-настоящему услышанным. В конфликте — предпочитает разобраться, а не выплеснуть.</p>
+</div>
+        </details></div>
+    </section>
+    <section class="profile-card" id="profile-L">
+      <div class="profile-header"><h2>Профиль L</h2></div>
+      
+      <div class="rating-form">
+        <div class="rating-title">Оценка профиля L</div>
+        <div class="rating-item">
+          <label>Насколько это похоже на меня</label>
+          <div class="scale-inputs"><label class="scale-btn"><input type="radio" name="sim_L" value="1"><span>1</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="2"><span>2</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="3"><span>3</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="4"><span>4</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="5"><span>5</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="6"><span>6</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="7"><span>7</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="8"><span>8</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="9"><span>9</span></label><label class="scale-btn"><input type="radio" name="sim_L" value="10"><span>10</span></label></div>
+        </div>
+        <div class="checkbox-block">
+          <label class="exact-label">
+            <input type="checkbox" id="exact-L" name="exact_L">
+            <span class="exact-box">Это точно про меня!</span>
+          </label>
+        </div>
+      </div>
+      <div class="profile-content">
+        <details class="section-block" open>
+            <summary class="section-title">КРАТКОЕ РЕЗЮМЕ ЛИЧНОСТИ</summary>
+            <div class="section-body"><p>Этот человек пришёл в мир с глубоким пониманием того, что значит беречь. Не в смысле контроля или удержания — а в смысле подлинного питания: создавать условия, в которых другие могут расцветать. Это не выбранная роль и не стратегия — это внутренняя природа, которая проявляется везде: в том, как он слушает, как принимает людей, как обустраивает пространство вокруг себя. Его сила — в способности быть надёжным присутствием: тем, кто не исчезает в трудный момент, кто помнит, кто держит нить. При этом эта сила оплачивается высокой ценой: чужие состояния он впитывает, как губка, и это требует серьёзной внутренней дисциплины — иначе накопленное давит. Его путь — научиться давать, не теряя себя. Когда это удаётся, он становится для окружающих чем-то вроде живого якоря.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПСИХОЛОГИЧЕСКАЯ СФЕРА</summary>
+            <div class="section-body"><p><strong>Мышление.</strong> Не линейное, а концентрическое — от сердца к периферии. Прежде чем прийти к мысли, он её прочувствовал. Интуитивное знание предшествует рациональному объяснению. Аналитика присутствует, но как инструмент — не как первоначальный импульс.</p>
+<p><strong>Эмоциональные реакции.</strong> Эмоциональная жизнь богата и глубока. Циклические смены настроения — не нестабильность, а ритм: есть периоды открытости и периоды ухода в себя, и оба необходимы. Попытки насильно вытащить его из второго периода дают обратный эффект.</p>
+<p><strong>Принятие решений.</strong> Медленное, но весомое. Долго вынашивает решение внутри, потом действует с полной уверенностью. Импульсивные решения — редкость. Доверяет накопленному опыту больше, чем текущей логике ситуации.</p>
+<p><strong>Отношение к риску.</strong> Осторожен там, где под угрозой безопасность близких или стабильность созданного. Готов рисковать ради долгосрочного блага семьи или дела — если внутри есть ощущение правильного направления.</p>
+<p><strong>Отношение к людям.</strong> Чутко считывает состояние — иногда лучше, чем человек сам понимает своё состояние. Долго помнит и хорошее, и плохое. Преданность — абсолютная к принятым; выход из доверия — болезненный и долгий.</p>
+<p><strong>Внутренние противоречия.</strong> Хочет заботиться — и устаёт от чужой потребности. Нуждается в безопасности — и жизнь снова и снова ставит в ситуации неопределённости. Умеет держать других — и сам иногда теряет опору под ногами.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ФИЗИОЛОГИЯ И СПОРТ</summary>
+            <div class="section-body"><p><strong>Уровень энергии.</strong> Волнообразная, связанная с внутренним ритмом. В периоды подъёма — высокая работоспособность и физическая сила. В периоды спада — глубокая потребность в покое, который нельзя заменить стимуляцией.</p>
+<p><strong>Выносливость.</strong> Высокая на длинных дистанциях при условии регулярного восстановления. Хорошо переносит монотонную нагрузку, если она наполнена смыслом — ритуальная регулярность укрепляет.</p>
+<p><strong>Предпочтительные нагрузки.</strong> Плавание, ходьба, йога, цигун. Нагрузки с элементом ритма и воды особенно благотворны. Командные виды — если команда воспринимается как своя. Контактные единоборства — с осторожностью: высокая чувствительность к физическому вторжению.</p>
+<p><strong>Восстановление.</strong> Восстанавливается через покой, воду, питание и близость с теми, кого любит. Важен качественный сон — именно в нём перерабатываются накопленные за день впечатления. Нарушение режима сна быстро отражается на состоянии.</p>
+<p>Сильные и слабые стороны организма. Пищеварительная система — живо реагирует на стресс и эмоциональное состояние. Питание напрямую влияет на настроение и уровень энергии. Желудок — барометр психического климата.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПРОФЕССИОНАЛЬНАЯ РЕАЛИЗАЦИЯ</summary>
+            <div class="section-body"><p><strong>Формат деятельности.</strong> Уход, образование, психология, медицина, история, работа с семьями, педагогика. Форматы, где результат труда воплощается в росте конкретных людей. Массовое и безличное — не его стихия.</p>
+<p><strong>Найм или предпринимательство.</strong> Хорош в структурах с ценностной основой. Семейный бизнес или малый коллектив с реальными человеческими связями — идеальная среда. В корпоративной системе — при условии, что роль несёт реальный смысл, а не только функцию.</p>
+<p><strong>Управление.</strong> Заботливый руководитель, который помнит о людях как о людях, а не как о ресурсах. Умеет создавать атмосферу безопасности. Слабость — трудно принимать жёсткие решения, затрагивающие близких.</p>
+<p><strong>Финансы.</strong> Ориентирован на стабильность и сохранение, а не на агрессивный рост. Накапливает осторожно. Тратит прежде всего на семью и дом — это ощущается как вложение в надёжную основу жизни.</p>
+<p><strong>Рабочая среда.</strong> Нуждается в атмосфере доверия и взаимной поддержки. В среде постоянного конкурентного давления — теряет продуктивность. Физическое пространство важно: беспорядок и некомфортность буквально снижают работоспособность.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ИНТЕРЕСЫ И ХОББИ</summary>
+            <div class="section-body"><p><strong>Устойчивые интересы.</strong> История, родоведение, кулинария, психология семейных систем, уход за пространством (архитектура, интерьер, сад), целительные практики, традиции.</p>
+<p><strong>Интеллектуальные предпочтения.</strong> Глубина и контекст — поверхностные обзоры не удовлетворяют. Интерес к тому, как складывалось то, что есть сейчас. История как живая связь с корнями, а не академический предмет.</p>
+<p><strong>Склонности.</strong> Создание уюта — физического и психологического. Хранение: семейных историй, традиций, предметов с историей. Готовка как форма заботы и творчества. Всё, что связано с питанием — в широком смысле.</p>
+<p><strong>Темы многолетнего интереса.</strong> Что значит дом — как место и как состояние. Откуда берётся способность принимать и беречь. Как передаются (и как прерываются) родовые модели.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">СЕМЬЯ И ОТНОШЕНИЯ</summary>
+            <div class="section-body"><p><strong>Построение отношений.</strong> Медленное, но глубокое. Нуждается во времени, чтобы привыкнуть к человеку, — торопить этот процесс бессмысленно. Когда принял — надолго, если не навсегда.</p>
+<p><strong>Близость.</strong> В близких отношениях — глубокая эмоциональная вовлечённость. Любит через заботу: приготовить, помочь, запомнить важную дату, создать нужное настроение. Язык близости — конкретные действия, а не слова.</p>
+<p><strong>Автономия.</strong> Нуждается в периодах уединения — особенно после интенсивного общения. Это не отчуждение, а необходимая пауза для переработки накопленного. Партнёру важно понять эту потребность, не принимая её на свой счёт.</p>
+<p><strong>Семейные роли.</strong> Семья — место силы и смысла. Родительская роль воспринимается как одна из важнейших в жизни. Умеет создавать атмосферу дома, в которой хочется быть. Трудно отпускает — людей, отношения, периоды жизни.</p>
+<p><strong>Коммуникация.</strong> Не самый многословный, но очень точный в важных разговорах. Слушает так, как умеют немногие — полностью присутствует. Молчание использует как инструмент, а не как уклонение. В конфликте — нуждается во времени, чтобы переварить, прежде чем отвечать.</p>
+</div>
+        </details></div>
+    </section>
+    <section class="profile-card" id="profile-M">
+      <div class="profile-header"><h2>Профиль M</h2></div>
+      
+      <div class="rating-form">
+        <div class="rating-title">Оценка профиля M</div>
+        <div class="rating-item">
+          <label>Насколько это похоже на меня</label>
+          <div class="scale-inputs"><label class="scale-btn"><input type="radio" name="sim_M" value="1"><span>1</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="2"><span>2</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="3"><span>3</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="4"><span>4</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="5"><span>5</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="6"><span>6</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="7"><span>7</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="8"><span>8</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="9"><span>9</span></label><label class="scale-btn"><input type="radio" name="sim_M" value="10"><span>10</span></label></div>
+        </div>
+        <div class="checkbox-block">
+          <label class="exact-label">
+            <input type="checkbox" id="exact-M" name="exact_M">
+            <span class="exact-box">Это точно про меня!</span>
+          </label>
+        </div>
+      </div>
+      <div class="profile-content">
+        <details class="section-block" open>
+            <summary class="section-title">КРАТКОЕ РЕЗЮМЕ ЛИЧНОСТИ</summary>
+            <div class="section-body"><p><strong>Этот человек рождён действовать.</strong> Не в смысле суеты или торопливости — а в смысле глубинного устройства: его связь с реальностью осуществляется через поступок, а не через размышление о нём. Он приходит туда, где нужно начать, — и начинает. Без долгих обсуждений, без ожидания идеального момента, без оглядки на тех, кто сомневается. При этом за этой прямотой стоит нечто более глубокое: ощущение, что каждое подлинное действие несёт в себе ответственность — не только за результат, но за то, что ты создаёшь самим фактом своего движения. Он умеет нести: взять груз и идти. Не жалуясь, не откладывая. Это не жертвенность — это способ бытия. Его сила — в готовности встретить трансформацию напрямую, там, где другие уходят в сторону.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПСИХОЛОГИЧЕСКАЯ СФЕРА</summary>
+            <div class="section-body"><p><strong>Мышление.</strong> Конкретное, ориентированное на действие. Быстро переходит от понимания к шагу. Не задерживается в теории дольше, чем нужно для ясности. Абстрактные построения без практического применения кажутся пустой тратой времени.</p>
+<p><strong>Эмоциональные реакции.</strong> Эмоциональная сфера интенсивна, но переживается преимущественно в действии: сильное чувство — это импульс к движению. Трансформирует переживание через поступок, а не через рефлексию. Застревание в чувстве без выхода создаёт напряжение.</p>
+<p><strong>Принятие решений.</strong> Быстрое, решительное. Не ищет разрешения от других — действует из внутреннего убеждения в правильности курса. При этом умеет останавливаться, если ситуация требует глубокого осознания последствий.</p>
+<p><strong>Отношение к риску.</strong> Принимает физический и практический риск как часть жизни. Неопределённость — не угроза, а территория, которую нужно пройти. Страх — сигнал к движению, а не к остановке.</p>
+<p><strong>Отношение к людям.</strong> Прямой в общении — без фальши и без лишней дипломатии. Уважает тех, кто говорит прямо и делает то, что говорит. Не переносит пассивность и уклонение. Верен тем, кто прошёл с ним трудный путь.</p>
+<p><strong>Внутренние противоречия.</strong> Стремится к действию — и несёт ответственность, которая его обязывает. Умеет начинать — и иногда трудно завершить до конца, потому что следующий вызов уже маячит. Его прямота — дар и риск: ранит тех, кто не готов к такой степени честности.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ФИЗИОЛОГИЯ И СПОРТ</summary>
+            <div class="section-body"><p><strong>Уровень энергии.</strong> Высокая, взрывная. Тело создано для нагрузки — без неё возникает накопленная тревога и раздражительность, ищущая выход. Движение — базовый регулятор психического состояния.</p>
+<p><strong>Выносливость.</strong> Хорошая, особенно в условиях вызова и конкуренции. Когда есть противник или цель — мобилизуется быстро. В спокойных условиях может расслабляться больше, чем нужно.</p>
+<p><strong>Предпочтительные нагрузки.</strong> Единоборства, силовые тренировки, бег, командные контактные игры. Всё, где есть элемент противостояния, преодоления и физической честности. Нагрузка должна быть настоящей — лёгкая разминка не удовлетворяет.</p>
+<p><strong>Восстановление.</strong> Восстанавливается быстро — физически. Эмоционально — через движение и смену обстановки. Полный покой переносит хуже, чем активное переключение.</p>
+<p>Сильные и слабые стороны организма. Голова — зона особого внимания: головные боли при перенапряжении, склонность к травмам в этой зоне при интенсивных нагрузках. Надпочечники и уровень адреналина требуют грамотного управления. Важно не уходить в постоянный режим мобилизации.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПРОФЕССИОНАЛЬНАЯ РЕАЛИЗАЦИЯ</summary>
+            <div class="section-body"><p><strong>Формат деятельности.</strong> Запуски, кризисное управление, предпринимательство, военное дело, строительство, медицина скорой помощи, руководство в условиях неопределённости. Среды, где нужна скорость, прямое действие и личная ответственность за результат.</p>
+<p><strong>Найм или предпринимательство.</strong> Предпочтительно предпринимательство или роль с широкими полномочиями. В найме — лучший в условиях кризиса и нестандартных задач. Рутина и бюрократия — его не стихия.</p>
+<p><strong>Управление.</strong> Сильный лидер в острых ситуациях. Умеет принять решение там, где другие колеблются. Умеет вдохновить личным примером. Слабость — терпение в условиях медленных процессов и способность к длительным переговорам.</p>
+<p><strong>Финансы.</strong> Практичен в базовых финансовых вопросах. Не склонен к накоплению ради накопления — деньги должны работать. Умеет быстро генерировать ресурс там, где другие не видят возможности.</p>
+<p><strong>Рабочая среда.</strong> Нуждается в пространстве, где он может действовать и видеть результат. Медленные согласования и длинные цепочки согласования сверху — прямой путь к потере мотивации.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ИНТЕРЕСЫ И ХОББИ</summary>
+            <div class="section-body"><p><strong>Устойчивые интересы.</strong> Военная история, физическая культура, выживание, ремёсла с высоким физическим вовлечением, строительство, медицина экстренных состояний. Всё, что требует и тела, и ума одновременно.</p>
+<p><strong>Интеллектуальные предпочтения.</strong> Практическое знание ценится выше теоретического. Биографии людей действия, истории трансформаций, тактика и стратегия. Не абстракции — а принципы, применимые в реальной ситуации.</p>
+<p><strong>Склонности.</strong> Создание и строительство — физическое или организационное. Участие в ситуациях, требующих смелости. Инициирование процессов, которые без него бы не начались.</p>
+<p><strong>Темы многолетнего интереса.</strong> Природа смелости и ответственности. Цена создания — что ты берёшь на себя, когда начинаешь что-то. Как правильно действовать там, где нет готового ответа.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">СЕМЬЯ И ОТНОШЕНИЯ</summary>
+            <div class="section-body"><p><strong>Построение отношений.</strong> Прямой и честный с первых встреч — притягивает тех, кто ценит это, и отталкивает тех, кто предпочитает игры. Привязанность возникает быстро там, где есть уважение и общее дело.</p>
+<p><strong>Близость.</strong> Любит через действие и защиту. Конкретные поступки — его язык близости. Не всегда умеет объяснить словами то, что выражает делом. Нуждается в партнёре, который это видит и ценит.</p>
+<p><strong>Автономия.</strong> Важна. Потребность в собственной территории — физической и психологической — реальна. Ограничение свободы действия в отношениях переносится плохо и провоцирует внутреннее давление.</p>
+<p><strong>Семейные роли.</strong> Защитник и добытчик — не из традиции, а из природы. При этом уважает самостоятельность близких и не стремится контролировать их выборы. От детей ожидает честности и готовности к усилию.</p>
+<p><strong>Коммуникация.</strong> Прямая, без обходных манёвров. Умеет сказать жёстко — и сразу отпустить. Конфликт воспринимает как честную встречу, а не как угрозу. Молчаливое накапливание претензий — не его стиль.</p>
+</div>
+        </details></div>
+    </section>
+    <section class="profile-card" id="profile-N">
+      <div class="profile-header"><h2>Профиль N</h2></div>
+      
+      <div class="rating-form">
+        <div class="rating-title">Оценка профиля N</div>
+        <div class="rating-item">
+          <label>Насколько это похоже на меня</label>
+          <div class="scale-inputs"><label class="scale-btn"><input type="radio" name="sim_N" value="1"><span>1</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="2"><span>2</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="3"><span>3</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="4"><span>4</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="5"><span>5</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="6"><span>6</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="7"><span>7</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="8"><span>8</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="9"><span>9</span></label><label class="scale-btn"><input type="radio" name="sim_N" value="10"><span>10</span></label></div>
+        </div>
+        <div class="checkbox-block">
+          <label class="exact-label">
+            <input type="checkbox" id="exact-N" name="exact_N">
+            <span class="exact-box">Это точно про меня!</span>
+          </label>
+        </div>
+      </div>
+      <div class="profile-content">
+        <details class="section-block" open>
+            <summary class="section-title">КРАТКОЕ РЕЗЮМЕ ЛИЧНОСТИ</summary>
+            <div class="section-body"><p>Этот человек живёт с постоянным внутренним вопросом о равновесии — не как абстрактным идеалом, а как практической задачей, которую он решает в каждом выборе. Справедливость для него — не лозунг, а почти физическое ощущение: он остро чувствует, когда что-то «перевешивает» и требует коррекции. При этом его путь к равновесию необычен: он не идёт по центру, а раскачивается между крайностями — и именно в этом движении находит собственное понимание баланса. Конвенциональные решения его мало интересуют; он ищет нестандартный путь — не из желания выделиться, а потому что чувствует, что стандартный путь не приводит туда, куда нужно. Его независимость не агрессивна — она тихая и абсолютная. Он умеет находить общий язык с очень разными людьми и видеть ценность в противоположных позициях, что делает его способным посредником и неудобным собеседником одновременно.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПСИХОЛОГИЧЕСКАЯ СФЕРА</summary>
+            <div class="section-body"><p><strong>Мышление.</strong> Одновременно видит несколько сторон ситуации — это не нерешительность, а особый способ мышления через сравнение. Прежде чем прийти к выводу, обходит его со всех сторон. Иногда это тормозит действие, но чаще даёт качество решения.</p>
+<p><strong>Эмоциональные реакции.</strong> Эмоции обрабатываются через осмысление. Сначала ищет слова и контекст, потом — проживает. Острая несправедливость вызывает сильную реакцию, которая может казаться непропорциональной, если не знать, чем она вызвана.</p>
+<p><strong>Принятие решений.</strong> Трудно в ситуациях, где нет очевидно «правильной» стороны — и таких ситуаций в жизни оказывается неожиданно много. Когда принцип ясен — действует решительно. Когда принцип размыт — может откладывать.</p>
+<p><strong>Отношение к риску.</strong> Нестандартный риск воспринимается как необходимость — стандартный путь часто кажется ему слишком узким. При этом риск оценивается с учётом его влияния на других. Риск, затрагивающий только его самого, — принимает легче.</p>
+<p><strong>Отношение к людям.</strong> Видит в человеке прежде всего позицию и ценности. Умеет работать с людьми, чьи взгляды кардинально расходятся с его собственными — это не мешает ему, а интересует. При этом близость строит только с теми, кто разделяет базовое понимание честности.</p>
+<p><strong>Внутренние противоречия.</strong> Стремится к равновесию — и сам создаёт колебания. Хочет партнёрства — и ценит независимость настолько, что партнёрство усложняется. Понимает всех — и не всегда понят сам.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ФИЗИОЛОГИЯ И СПОРТ</summary>
+            <div class="section-body"><p><strong>Уровень энергии.</strong> Переменчивая, зависит от внутренней согласованности. В периоды внутреннего конфликта — энергия падает. В периоды ясности — высокая и стабильная. Физическое состояние напрямую отражает психический баланс.</p>
+<p><strong>Выносливость.</strong> Хорошая в нагрузках, требующих координации и чувства ритма. Силовая монотонная работа — менее органична. Лучше всего — когда в тренировке есть элемент изящества или технической точности.</p>
+<p><strong>Предпочтительные нагрузки.</strong> Танцы, гимнастика, боевые искусства с акцентом на технику, плавание, парные виды спорта. Физическая деятельность, в которой есть взаимодействие — не только с пространством, но и с другим человеком.</p>
+<p><strong>Восстановление.</strong> Восстанавливается через красоту: музыка, искусство, эстетически гармоничное пространство. Внешний беспорядок нарушает внутреннее равновесие значительно сильнее, чем у большинства. Одиночество нужно, но в балансе с живым общением.</p>
+<p>Сильные и слабые стороны организма. Почки и поясничный отдел — зоны накопленного стресса. Гормональный баланс чувствителен к психическому состоянию. Регулярность в питании и сне — не прихоть, а гигиена равновесия.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ПРОФЕССИОНАЛЬНАЯ РЕАЛИЗАЦИЯ</summary>
+            <div class="section-body"><p><strong>Формат деятельности.</strong> Право, медиация, консультирование, дизайн, дипломатия, переговоры. Сферы, где нужно удерживать несколько интересов одновременно и находить решение, которое не ломает ни одну сторону.</p>
+<p><strong>Найм или предпринимательство.</strong> В найме — ценный специалист в роли посредника или архитектора процессов. В предпринимательстве — при наличии партнёра, который уравновешивает его нестандартность прагматичностью.</p>
+<p><strong>Управление.</strong> Создаёт горизонтальные, справедливые структуры. Умеет учитывать интересы разных сторон при принятии решений. Слабость — медлительность в ситуациях, где нужно действовать быстро и односторонне.</p>
+<p><strong>Финансы.</strong> Умеренная ориентация на материальное. Деньги — ресурс для независимости и красивой жизни. Склонен к нестандартным способам заработка. Финансовые решения принимает после взвешивания, не импульсивно.</p>
+<p><strong>Рабочая среда.</strong> Нуждается в эстетически достойной среде и в отсутствии грубости и хаоса. Конфликтная атмосфера в коллективе снижает производительность быстро и ощутимо. Важно, чтобы работа ощущалась как справедливая.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">ИНТЕРЕСЫ И ХОББИ</summary>
+            <div class="section-body"><p><strong>Устойчивые интересы.</strong> Искусство, архитектура, право, история дипломатии, философия этики, сравнительное религиоведение, эстетика. Всё, что связано с поиском принципов гармонии — в пространстве, отношениях, мышлении.</p>
+<p><strong>Интеллектуальные предпочтения.</strong> Сравнительный анализ, этика, история идей через призму справедливости. Читает разные точки зрения по одной теме, прежде чем составить собственную. Ценит глубину аргумента, а не его громкость.</p>
+<p><strong>Склонности.</strong> Создание красоты в пространстве и коммуникации. Способность к посредничеству — возникает естественно, даже без намерения. Коллекционирование эстетически значимого.</p>
+<p><strong>Темы многолетнего интереса.</strong> Что такое справедливость на практике. Как удерживать равновесие без потери себя. Природа отношений между свободой и обязательством.</p>
+</div>
+        </details>
+        <details class="section-block">
+            <summary class="section-title">СЕМЬЯ И ОТНОШЕНИЯ</summary>
+            <div class="section-body"><p><strong>Построение отношений.</strong> Привлекает внимание тонким пониманием другого — люди чувствуют, что здесь их видят и слышат. Сам движется к близости осторожно, обходя ситуацию со всех сторон прежде, чем открыться.</p>
+<p><strong>Близость.</strong> Нуждается в партнёрстве как в глубинной ценности. Романтика важна. Красота отношений — не поверхностная, а выраженная в качестве взаимодействия — принципиально важна. Партнёр должен быть и другом, и собеседником.</p>
+<p><strong>Автономия.</strong> Независимость — абсолютная ценность, даже в самых близких отношениях. Это не отдалённость, а условие подлинного присутствия: только из свободного выбора он может полностью быть рядом.</p>
+<p><strong>Семейные роли.</strong> Создаёт культуру уважения и равноправия в семье. Не терпит иерархии, основанной на принуждении. Детей воспринимает как людей с собственной позицией — с самого раннего возраста.</p>
+<p><strong>Коммуникация.</strong> Дипломатичен по природе — умеет сказать трудное мягко. Иногда эта мягкость скрывает то, что нужно было сказать прямо. В конфликте — склонен искать компромисс, что порой мешает защитить собственную позицию в полную силу.</p>
+</div>
+        </details></div>
+    </section>
+  <div class="download-section">
+    <button id="download-btn">Скачать результаты (JSON)</button>
+  </div>
+  
+  <div class="key-section">
+    <div class="warning">⚠️ Ключ к эксперименту — открывать только после завершения оценки всех профилей.</div>
+    <div class="reveal-section">
+      <button id="reveal-btn">Посмотреть ключ</button>
+    </div>
+    <div id="key-content">
+      <div class="key-card">
+        <h2>Ключ профиля</h2>
+        <p>Истинной дате рождения соответствует <strong>Профиль L</strong>.</p>
+      </div>
+      <div class="key-card">
+        <h2>Истинная дата рождения</h2>
+        <div class="bd-highlight">—</div>
+        <p style="margin-top:.75rem;font-size:.9rem;color:#666">— · —</p>
+      </div>
+      <div class="key-card">
+        <h2>Соответствие профилей</h2>
+        <table class="key-table">
+          <thead><tr><th>Профиль</th><th>Использованная дата</th><th>Тип варианта</th></tr></thead>
+          <tbody>
+        <tr>
+          <td class="cell-label">Профиль K</td>
+          <td>—</td>
+          <td>BD + 180 дней</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Профиль L</td>
+          <td>—</td>
+          <td class="highlight">Истинная дата</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Профиль M</td>
+          <td>—</td>
+          <td>BD − 90 дней</td>
+        </tr>
+        <tr>
+          <td class="cell-label">Профиль N</td>
+          <td>—</td>
+          <td>BD + 90 дней</td>
+        </tr></tbody>
+        </table>
+      </div>
+      <div class="key-card">
+        <h2>Итог</h2>
+        <p>Верная дата рождения соответствует профилю <strong>L</strong>.
+        Если вы поставили ему наиболее высокую оценку «Насколько это похоже на меня»,
+        то эксперимент что-то да подтверждает в отношении астрологического метода описания личности.</p>
+      </div>
+    </div>
+  </div>
+  <div class="back-link"><a href="#">↑ Наверх</a></div>
+</div>
+<script>
+    document.getElementById("reveal-btn").addEventListener("click", function() {
+      document.getElementById("key-content").style.display = "block";
+      this.closest(".reveal-section").style.display = "none";
+    });
+    document.getElementById("download-btn").addEventListener("click", function() {
+      const labels = ["K", "L", "M", "N"];
+      const results = {
+        school: "ind",
+        timestamp: new Date().toISOString(),
+        profiles: {}
+      };
+      labels.forEach(l => {
+        const sim = document.querySelector(`input[name="sim_${l}"]:checked`);
+        results.profiles[l] = {
+          similarity: sim ? parseInt(sim.value) : null,
+          exactlyMe: document.getElementById(`exact-${l}`).checked
+        };
+      });
+      const blob = new Blob([JSON.stringify(results, null, 2)], {type: "application/json"});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      const _now = new Date();
+      const _ts = _now.getFullYear().toString() +
+                  String(_now.getMonth()+1).padStart(2,"0") +
+                  String(_now.getDate()).padStart(2,"0") +
+                  String(_now.getHours()).padStart(2,"0") +
+                  String(_now.getMinutes()).padStart(2,"0");
+      a.download = "—_ind_" + _ts + ".json";
+      a.click();
+      URL.revokeObjectURL(url);
+    });</script>
+</body>
+</html>
